@@ -327,6 +327,16 @@ def get_roi_wrapper(input_file, config_data, output_dir=None):
         roi_filename = f"roi_{idx:02d}.tiff"
         write_image(join(output_dir, roi_filename), rois[idx], scale=True)
 
+    current_dir = os.path.dirname(input_file)
+    roi_file = os.path.join(current_dir, "rt-bg-roi.npy")
+
+    if os.path.exists(roi_file):
+        roi = np.load(roi_file)
+
+    bground_file = os.path.join(current_dir, "rt-background.npy")
+    if os.path.exists(bground_file):
+        bground_im = np.load(bground_file)
+
     return roi, bground_im, first_frame
 
 
